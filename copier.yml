@@ -44,3 +44,56 @@ apoikia_ref:
   type: str
   default: main
   help: Tag or commit of apoikia that the generated workflows call
+
+# Decisions of the organization stated in CONTRIBUTING.md. An empty answer renders the
+# corresponding TODO comment, so that the decision stays visible until it is taken.
+
+admin_name:
+  type: str
+  default: ""
+  help: Person to whom questions about the guidelines are addressed
+
+admin_email:
+  type: str
+  default: ""
+  help: Email address of that person
+
+maintainer:
+  type: str
+  default: ""
+  help: Maintainer to notify when sensitive content is committed (Markdown allowed)
+
+data_storage:
+  type: str
+  default: ""
+  help: Storage location of the datasets, as a noun phrase (e.g. "the institutional server")
+
+external_contributions_policy:
+  type: str
+  default: ""
+  help: Sentence stating whether external contributors may open issues and pull requests
+
+release_archive:
+  type: str
+  default: ""
+  help: Service archiving the releases of publications with a DOI (e.g. "Zenodo")
+
+publication_policy:
+  type: str
+  default: ""
+  help: Sentence stating when a study repository is made public and whether it is archived
+
+license_policy:
+  type: str
+  default: ""
+  help: Default licenses, as a parenthetical (e.g. "MIT for code, CC BY 4.0 for documents")
+
+topics:
+  type: yaml
+  default: []
+  help: Topics set on repositories, as a YAML list
+
+languages:
+  type: yaml
+  default: []
+  help: Supported languages, as a YAML list

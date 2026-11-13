@@ -35,6 +35,51 @@
       "type": "string",
       "minLength": 1
     },
+    "admin_name": {
+      "description": "Person to whom questions about the guidelines are addressed; empty until decided",
+      "type": "string"
+    },
+    "admin_email": {
+      "description": "Email address of that person; empty until decided",
+      "type": "string",
+      "pattern": "^$|^[^@\\s]+@[^@\\s]+$"
+    },
+    "maintainer": {
+      "description": "Maintainer to notify when sensitive content is committed (Markdown allowed); empty until decided",
+      "type": "string"
+    },
+    "data_storage": {
+      "description": "Storage location of the datasets, as a noun phrase; empty until decided",
+      "type": "string"
+    },
+    "external_contributions_policy": {
+      "description": "Sentence stating whether external contributors may open issues and pull requests; empty until decided",
+      "type": "string"
+    },
+    "release_archive": {
+      "description": "Service archiving the releases of publications with a DOI; empty until decided",
+      "type": "string"
+    },
+    "publication_policy": {
+      "description": "Sentence stating when a study repository is made public and whether it is archived; empty until decided",
+      "type": "string"
+    },
+    "license_policy": {
+      "description": "Default licenses, as a parenthetical; empty until decided",
+      "type": "string"
+    },
+    "topics": {
+      "description": "Topics set on repositories; empty until decided",
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,49}$" },
+      "uniqueItems": true
+    },
+    "languages": {
+      "description": "Supported languages; empty until decided",
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
     "settings": {
       "description": "Organization settings applied through the GitHub API",
       "type": "object",

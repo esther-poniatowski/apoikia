@@ -11,6 +11,18 @@ contact_url: https://example.org/lab/contact
 apoikia_repo: esther-poniatowski/apoikia
 apoikia_ref: main
 
+# Decisions stated in CONTRIBUTING.md; an empty value renders the corresponding TODO comment.
+admin_name: Admin Name
+admin_email: admin@example.org
+maintainer: "[Admin Name](mailto:admin@example.org)"
+data_storage: the institutional server
+external_contributions_policy: Issues and pull requests from external contributors are welcome.
+release_archive: Zenodo
+publication_policy: A study repository is made public when its preprint is posted, and archived (read-only) once the article is published.
+license_policy: MIT for code, CC BY 4.0 for documentation and figures
+topics: [eeg, meg, modelling]
+languages: [Python, MATLAB]
+
 settings:
   default_repository_permission: read
   members_can_create_public_repositories: false

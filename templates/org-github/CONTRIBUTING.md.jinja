@@ -1,36 +1,108 @@
-# Contributing to the repositories of {{ org_name }}
+# Contributing guidelines
 
-These guidelines apply to every repository of the organization that does not define its own
-`CONTRIBUTING.md`.
+These guidelines should be applied by members and collaborators working on the repositories of the {{ org_name }} organization.
 
-## Issues
+{% if external_contributions_policy -%}
+{{ external_contributions_policy }}
+{%- else -%}
+<!-- TODO: decide whether issues and pull requests from external contributors are accepted -->
+{%- endif %}
 
-Each piece of work starts as an issue, opened through one of the forms offered by the repository:
+## Data and confidentiality
 
-- **Task** for a feature, an analysis or a change of documentation;
-- **Bug** for a behavior that differs from the expected one.
+- Datasets are stored outside GitHub{% if data_storage %} on {{ data_storage }}{% endif %}, while repositories only reference their location.
+- No participant or patient data may be committed to any repository, whether raw or pseudonymized, including identifiers, consent documents, and clinical information.
+- No credentials may be committed: passwords, access tokens, API keys, private keys.
+{% if not data_storage %}
+<!-- TODO: name the storage location or archive for datasets (e.g. institutional server) -->
+{% endif %}
+> [!IMPORTANT]
+> If such content is committed by mistake:
+>
+> 1. notify the maintainer{% if maintainer %}, {{ maintainer }}{% endif %},
+> 2. revoke any exposed credential,
+> 3. purge the content from the commit history.
+>
+> Deleting the file in a later commit is *not sufficient*.
+{% if not maintainer %}
+<!-- TODO: name the maintainer to notify -->
+{% endif %}
+## Reproducibility and open science
 
-## Commits
+- The version of the code used for a publication is identified by a tag or release.
+- Code associated with a publication must allow every figure and result to be regenerated, following a documented procedure.
+{%- if release_archive %}
+- Releases associated with a publication are archived with a DOI on {{ release_archive }}.
+{%- endif %}
+{%- if publication_policy %}
+- {{ publication_policy }}
+{%- endif %}
+{% if not release_archive or not publication_policy %}
+{% endif -%}
+{% if not release_archive -%}
+<!-- TODO: decide whether releases associated with a publication are archived with a DOI, and where (e.g. Zenodo, Software Heritage) -->
+{% endif -%}
+{% if not publication_policy -%}
+<!-- TODO: decide when a study repository is made public (at preprint, at publication) and whether it is archived (read-only) afterwards -->
+{% endif %}
+## Credit
 
-Commit messages follow the [Conventional Commits](https://www.conventionalcommits.org/)
-convention: `<type>(<scope>): <summary>`, for example `fix(preprocessing): Drop empty trials`.
-The types in use are `feat`, `fix`, `docs`, `refactor`, `test`, `build`, `ci` and `chore`.
+Every repository should:
 
-## Pull requests
+- select a license and ship it in a `LICENSE` file{% if license_policy %} ({{ license_policy }}){% endif %},
+- provide a `CITATION.cff` file at its root, listing the authors of the code and, once published, the associated article as the preferred citation.
+{% if not license_policy %}
+<!-- TODO: decide the default license (e.g. MIT or BSD-3-Clause for code, CC BY 4.0 for documentation and figures), after checking the policy of the host institutions -->
+{% endif %}
+## Repository requirements
 
-Changes reach the default branch through a pull request that references its issue
-(`Closes #<number>`). The pull request template lists the checks to run before review.
+Every repository should contain:
 
-## Reproducibility
+- a `README.md` file stating at least the purpose of the repository, how to install the environment, and how to run the code,
+- a pinned environment specification (e.g. `environment.yml`, `requirements.txt`, `pyproject.toml` with a lock file),
+- a `.gitignore` file excluding data files, outputs, and local configuration.
 
-<!-- TODO: Fix the requirements of the team: environment file, pinned dependencies, data
-     location, CITATION.cff. -->
+## Naming and file system
 
-Each repository declares its software environment in a file committed with the code
-(`environment.yml` or `pyproject.toml`), so that any member can rebuild it.
+<!-- TODO: decide the repository naming pattern, for instance lowercase, hyphenated, with a type prefix:
+       study-<short-name>           code reproducing an article or preprint
+       experiment-<short-name>      experimental paradigms and stimulus presentation
+       tool-<short-name>            shared libraries and pipelines -->
+{% if topics -%}
+Repositories carry topics from the following list: {% for topic in topics %}`{{ topic }}`{{ ", " if not loop.last }}{% endfor %}.
+{%- else -%}
+<!-- TODO: decide the list of topics to set on repositories (e.g. eeg, meg, fmri, modelling) -->
+{%- endif %}
+<!-- TODO: decide the standard directory structure per repository type -->
 
-{% if contact_url -%}
+## Workflow
+
+- The default branch contains working code.
+- Commit messages should follow the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/), using the organization's [commit message template](https://github.com/{{ org_login }}/.github/blob/HEAD/.gitmessage).
+- Issues are opened through the forms of the repository: **Task** for a feature, an analysis or a change of documentation, **Bug** for a behavior that differs from the expected one.
+
+> [!TIP]
+> To enable the template, download it and register it once:
+> ```bash
+> git config --global commit.template ~/.gitmessage
+> ```
+
+<!-- TODO: decide the branching model (e.g. short-lived feature branches merged through pull requests) -->
+
+## Code standards
+
+{% if languages -%}
+Supported languages: {{ languages | join(", ") }}.
+{%- else -%}
+<!-- TODO: decide the supported languages -->
+{%- endif %}
+<!-- TODO: decide whether testing, formatter and linter are enforced through pre-commit hooks or continuous integration -->
+<!-- TODO: decide the documentation style (e.g. docstring convention) -->
+
 ## Contact
 
-External contributors can reach the team through the [contact page]({{ contact_url }}).
-{% endif -%}
+{% if admin_name and admin_email -%}
+Questions about these guidelines can be addressed to [{{ admin_name }}](mailto:{{ admin_email }}).
+{%- else -%}
+<!-- TODO: name the person to whom questions about these guidelines are addressed -->
+{%- endif %}

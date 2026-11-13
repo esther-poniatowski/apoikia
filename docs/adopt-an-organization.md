@@ -26,7 +26,10 @@ copier copy --data-file org-admin/org.yml --data template=org-github gh:esther-p
 ```
 
 An existing `profile/README.md` is kept. For any other file that already exists, Copier asks before
-overwriting it. Review the diff in the clone, then commit and push it.
+overwriting it. Before rendering over an existing `CONTRIBUTING.md`, move the decisions it states
+(data storage, maintainer, licenses, contact) into the corresponding keys of `org.yml`. Each key
+left empty renders a TODO comment in place of its decision. Review the diff in the clone, then
+commit and push it.
 
 ## 3. Allow the reusable workflows
 
