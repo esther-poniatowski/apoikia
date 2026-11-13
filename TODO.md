@@ -4,8 +4,8 @@
 
 - Choose the licenses: one for code and templates (for example MIT), one for slides and documents
   (for example CC BY 4.0).
-- Create the public repository on GitHub and tag a first release; the organization profiles then
-  pin `apoikia_ref` to that tag instead of `main`.
+- Tag a first release; the organization profiles then pin `apoikia_ref` to that tag instead of
+  `main`.
 
 ## Templates
 
