@@ -1,0 +1,54 @@
+# Reusable workflow: lints and tests a Python repository.
+#
+# Callers reference it as `<owner>/apoikia/.github/workflows/python-ci.yml@<tag>`. The workflow has
+# no other trigger, so it never runs on pushes to apoikia itself. Each command is an input, so that
+# a repository without a linter or without tests disables the step by passing an empty string.
+
+name: Python CI (reusable)
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        description: Python version passed to actions/setup-python
+        type: string
+        default: "3.12"
+      working-directory:
+        description: Directory in which the commands run
+        type: string
+        default: "."
+      install-command:
+        description: Command installing the project and its check tools
+        type: string
+        default: python -m pip install --upgrade pip && python -m pip install -e . ruff pytest
+      lint-command:
+        description: Lint command; empty to skip linting
+        type: string
+        default: ruff check .
+      test-command:
+        description: Test command; empty to skip testing
+        type: string
+        default: pytest
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.python-version }}
+      - name: Install
+        run: ${{ inputs.install-command }}
+      - name: Lint
+        if: ${{ inputs.lint-command != '' }}
+        run: ${{ inputs.lint-command }}
+      - name: Test
+        if: ${{ inputs.test-command != '' }}
+        run: ${{ inputs.test-command }}
