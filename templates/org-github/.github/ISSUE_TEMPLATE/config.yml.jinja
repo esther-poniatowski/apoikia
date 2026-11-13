@@ -1,0 +1,7 @@
+blank_issues_enabled: false
+{% if contact_url -%}
+contact_links:
+  - name: Contact {{ org_name }}
+    url: {{ contact_url }}
+    about: Questions that are not a task or a bug of a repository.
+{% endif -%}

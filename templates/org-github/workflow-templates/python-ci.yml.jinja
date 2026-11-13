@@ -1,0 +1,13 @@
+name: Python CI
+
+on:
+  push:
+    branches: [$default-branch]
+  pull_request:
+    branches: [$default-branch]
+
+jobs:
+  check:
+    uses: {{ apoikia_repo }}/.github/workflows/python-ci.yml@{{ apoikia_ref }}
+    with:
+      python-version: "3.12"

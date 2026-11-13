@@ -1,0 +1,46 @@
+# Copier configuration shared by every template of apoikia.
+#
+# Copier reads this file at the repository root, so that `copier update` can locate it in any
+# rendered instance. The `template` answer selects the subdirectory that renders the instance.
+
+_min_copier_version: "9.4.0"
+_subdirectory: "templates/{{ template }}"
+
+# Files owned by the organization once created: rendered on the first copy only, never
+# overwritten by `copier update`.
+_skip_if_exists:
+  - profile/README.md
+
+template:
+  type: str
+  help: Instance to render
+  choices:
+    Public `.github` repository of the organization: org-github
+
+org_login:
+  type: str
+  help: GitHub login of the organization (as in https://github.com/<login>)
+
+org_name:
+  type: str
+  help: Display name of the organization
+
+website:
+  type: str
+  default: ""
+  help: Public website of the team (empty if none)
+
+contact_url:
+  type: str
+  default: "{{ website }}"
+  help: Page that external people use to contact the team (empty if none)
+
+apoikia_repo:
+  type: str
+  default: esther-poniatowski/apoikia
+  help: Repository holding the reusable workflows, as <owner>/<name>
+
+apoikia_ref:
+  type: str
+  default: main
+  help: Tag or commit of apoikia that the generated workflows call

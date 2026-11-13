@@ -1,0 +1,6 @@
+{
+  "name": "Python CI",
+  "description": "Lints and tests a Python repository through the reusable workflow of apoikia.",
+  "categories": ["Python"],
+  "filePatterns": ["pyproject.toml$", "setup.py$", "requirements.*\\.txt$"]
+}

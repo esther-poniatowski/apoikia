@@ -1,0 +1,36 @@
+# Contributing to the repositories of {{ org_name }}
+
+These guidelines apply to every repository of the organization that does not define its own
+`CONTRIBUTING.md`.
+
+## Issues
+
+Each piece of work starts as an issue, opened through one of the forms offered by the repository:
+
+- **Task** for a feature, an analysis or a change of documentation;
+- **Bug** for a behavior that differs from the expected one.
+
+## Commits
+
+Commit messages follow the [Conventional Commits](https://www.conventionalcommits.org/)
+convention: `<type>(<scope>): <summary>`, for example `fix(preprocessing): Drop empty trials`.
+The types in use are `feat`, `fix`, `docs`, `refactor`, `test`, `build`, `ci` and `chore`.
+
+## Pull requests
+
+Changes reach the default branch through a pull request that references its issue
+(`Closes #<number>`). The pull request template lists the checks to run before review.
+
+## Reproducibility
+
+<!-- TODO: Fix the requirements of the team: environment file, pinned dependencies, data
+     location, CITATION.cff. -->
+
+Each repository declares its software environment in a file committed with the code
+(`environment.yml` or `pyproject.toml`), so that any member can rebuild it.
+
+{% if contact_url -%}
+## Contact
+
+External contributors can reach the team through the [contact page]({{ contact_url }}).
+{% endif -%}
