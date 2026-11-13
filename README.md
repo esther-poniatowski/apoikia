@@ -12,7 +12,7 @@ for each kind of artifact:
 | Channel | Artifacts | Location in apoikia |
 |---|---|---|
 | Called in place | Reusable workflows | `.github/workflows/` |
-| Rendered into a repository of the organization | `.github` repository: profile, contribution guidelines, issue forms, workflow templates | `copier.yml`, `templates/` |
+| Rendered into a repository of the organization | `.github` repository: profile, contribution guidelines, commit message template, issue forms, workflow templates | `copier.yml`, `templates/` |
 | Applied through the GitHub API | Settings, Actions policy, teams, labels | `schemas/org.schema.json` |
 
 The [channels](docs/channels.md) note states why each artifact takes its channel, and the

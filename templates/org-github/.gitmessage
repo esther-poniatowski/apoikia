@@ -1,0 +1,14 @@
+prefix(scope): Title (< 50 characters)
+###################################################
+
+Description (< 72 characters):
+  - Description of change 1 in `file_1.txt`
+  - Description of change 2 in `file_2.txt`
+######################################################################
+
+Ref-Keyword: #ID
+
+# Prefixes: feat, fix, refactor, test, style, docs, perf, build, chore, revert, merge.
+# Summary: imperative mood, at most 50 characters.
+# Ref-Keyword: Closes, Fixes or Refs, followed by the issue number; delete the line if none.
+# Lines starting with '#' are ignored by git.
