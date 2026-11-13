@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/esther-poniatowski/apoikia/schemas/org.schema.json",
+  "title": "Organization profile",
+  "description": "Values specific to one organization: the answers of the Copier templates, and the settings applied through the GitHub API. The file lives in the private administration repository of the organization.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["org_login", "org_name", "settings"],
+  "properties": {
+    "org_login": {
+      "description": "GitHub login of the organization",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$"
+    },
+    "org_name": {
+      "description": "Display name of the organization",
+      "type": "string",
+      "minLength": 1
+    },
+    "website": {
+      "description": "Public website of the team; empty if none",
+      "type": "string"
+    },
+    "contact_url": {
+      "description": "Page that external people use to contact the team; empty if none",
+      "type": "string"
+    },
+    "apoikia_repo": {
+      "description": "Repository holding the reusable workflows, as <owner>/<name>",
+      "type": "string",
+      "pattern": "^[A-Za-z0-9-]+/[A-Za-z0-9._-]+$"
+    },
+    "apoikia_ref": {
+      "description": "Tag or commit of apoikia that the generated workflows call",
+      "type": "string",
+      "minLength": 1
+    },
+    "settings": {
+      "description": "Organization settings applied through the GitHub API",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "default_repository_permission": {
+          "description": "Base permission of members on every repository",
+          "enum": ["none", "read", "write", "admin"]
+        },
+        "members_can_create_public_repositories": { "type": "boolean" },
+        "members_can_create_private_repositories": { "type": "boolean" },
+        "members_can_fork_private_repositories": { "type": "boolean" }
+      }
+    },
+    "actions": {
+      "description": "Actions policy of the organization; `selected` must allow the reusable workflows of apoikia",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["allowed_actions"],
+      "properties": {
+        "allowed_actions": { "enum": ["all", "local_only", "selected"] },
+        "github_owned_allowed": { "type": "boolean" },
+        "patterns_allowed": {
+          "description": "Patterns of the actions and reusable workflows allowed when `allowed_actions` is `selected`",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "teams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "description": { "type": "string" },
+          "privacy": { "enum": ["closed", "secret"] },
+          "maintainers": { "$ref": "#/$defs/logins" },
+          "members": { "$ref": "#/$defs/logins" }
+        }
+      }
+    },
+    "repositories": {
+      "description": "Repositories that the organization holds, with the apoikia template rendering each instance",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "visibility"],
+        "properties": {
+          "name": { "type": "string", "pattern": "^[A-Za-z0-9._-]+$" },
+          "visibility": { "enum": ["public", "private", "internal"] },
+          "template": {
+            "description": "Value of the `template` answer of apoikia; absent for a repository not rendered from apoikia",
+            "enum": ["org-github"]
+          },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "labels": {
+      "description": "Labels created in every repository; must include the labels used by the issue forms (`task`, `bug`)",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "color"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "color": { "type": "string", "pattern": "^[0-9a-fA-F]{6}$" },
+          "description": { "type": "string" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "logins": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$" },
+      "uniqueItems": true
+    }
+  }
+}

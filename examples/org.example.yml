@@ -1,0 +1,54 @@
+# Example organization profile, validated by schemas/org.schema.json.
+#
+# The real profile of an organization lives in its private administration repository, as `org.yml`.
+# The top-level scalar keys answer the questions of copier.yml; `settings`, `actions`, `teams`,
+# `repositories` and `labels` are applied through the GitHub API.
+
+org_login: example-lab
+org_name: Example Lab
+website: https://example.org/lab
+contact_url: https://example.org/lab/contact
+apoikia_repo: esther-poniatowski/apoikia
+apoikia_ref: main
+
+settings:
+  default_repository_permission: read
+  members_can_create_public_repositories: false
+  members_can_create_private_repositories: true
+  members_can_fork_private_repositories: false
+
+actions:
+  allowed_actions: selected
+  github_owned_allowed: true
+  patterns_allowed:
+    - esther-poniatowski/apoikia/.github/workflows/*
+
+teams:
+  - name: admins
+    description: Administrators of the organization
+    privacy: closed
+    maintainers: [admin-login]
+  - name: members
+    description: All members of the team
+    privacy: closed
+    members: [member-login-1, member-login-2]
+
+repositories:
+  - name: .github
+    visibility: public
+    template: org-github
+    description: Profile, contribution guidelines and default templates
+  - name: team-meetings
+    visibility: private
+    description: Agendas, minutes and action items of the team meetings
+  - name: org-admin
+    visibility: private
+    description: Organization profile, settings and plans
+
+labels:
+  - name: task
+    color: "0e8a16"
+    description: Feature, analysis, or change of documentation
+  - name: bug
+    color: d73a4a
+    description: Behavior that differs from the expected one
